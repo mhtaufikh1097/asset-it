@@ -1,0 +1,7 @@
+php artisan config:clear
+php artisan cache:clear
+
+test koneksi database
+php artisan tinker
+DB::table('asset')->first();
+DB::select('SHOW TABLES');
