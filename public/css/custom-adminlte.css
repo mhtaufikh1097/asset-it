@@ -1,0 +1,23 @@
+/* TEST LOAD */
+.main-sidebar {
+    border: 2px solid rgb(9, 3, 45) !important;
+}
+
+/* SIDEBAR GRADIENT */
+.main-sidebar {
+    background: linear-gradient(
+        90deg,
+        rgb(10, 10, 46),
+        #071227,
+        #071d43
+    ) !important;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+    backdrop-filter: blur(6px);
+}
+
+/* menu text */
+.nav-sidebar .nav-link,
+.nav-sidebar .nav-icon {
+    color: rgb(198, 197, 201) !important;
+}

@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Tambah Asset')
 
@@ -6,7 +6,7 @@
     <h1>Tambah Asset</h1>
 @stop
 
-@section('content')
+@section('page-content')
 
 @if ($errors->any())
 <div class="alert alert-danger">

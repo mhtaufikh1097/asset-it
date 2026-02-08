@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Dashboard')
 
@@ -6,7 +6,7 @@
     <h1>Dashboard Asset</h1>
 @stop
 
-@section('content')
+@section('page-content')
 <div class="row">
 
     <div class="col-lg-4 col-6">

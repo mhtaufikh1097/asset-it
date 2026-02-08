@@ -54,4 +54,16 @@ public function store(Request $request)
         ->route('asset.index')
         ->with('success', 'Asset berhasil ditambahkan');
 }
+
+
+public function destroy($id)
+{
+    $asset = Asset::findOrFail($id);
+    $asset->delete();
+
+    return redirect()
+        ->route('asset.index')
+        ->with('success', 'Asset berhasil dihapus');
+}
+
 }

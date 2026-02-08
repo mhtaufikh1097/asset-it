@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'AdminLTE ',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -109,7 +109,7 @@ return [
     |
     */
     'sidebar_collapse' => true,
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    // 'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_topnav' => 'navbar-white navbar-light',
 
 
@@ -181,8 +181,8 @@ return [
                 'icon' => 'fas fa-handshake',
             ],
             [
-                'text' => 'Maintenance',
-                'url'  => 'asset/maintenance',
+                'text' => 'Pengembalian',
+                'url'  => 'asset/pengembalian',
                 'icon' => 'fas fa-tools',
             ],
         ],
@@ -227,7 +227,7 @@ return [
     ],
 ],
 
-'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+// 'classes_sidebar' => 'elevation-4',
 'logo' => '<b>IT</b>Asset',
 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
 'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -371,7 +371,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'asset/dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -399,6 +399,19 @@ return [
     'laravel_asset_bundling' => false,
     'laravel_css_path' => 'css/app.css',
     'laravel_js_path' => 'js/app.js',
+
+    'plugins_css' => [
+    'custom-adminlte' => [
+        'active' => true,
+        'files' => [
+            [
+                'type' => 'css',
+                'asset' => true,
+                'location' => 'css/custom-adminlte.css',
+            ],
+        ],
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
