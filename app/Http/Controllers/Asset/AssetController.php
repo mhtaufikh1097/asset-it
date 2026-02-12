@@ -9,7 +9,7 @@ class AssetController extends Controller
 {
     public function index()
     {
-        $assets = Asset::orderBy('id', 'desc')->get();
+        $assets = Asset::orderBy('id', 'desc')->paginate(10);
 
         return view('asset.index', ['assets' => $assets]);
 

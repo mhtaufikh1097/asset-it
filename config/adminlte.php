@@ -140,6 +140,24 @@ return [
         'icon' => 'fas fa-tachometer-alt',
     ],
 
+    // SPACER
+    ['header' => ''],
+
+    // INFO USER LOGIN
+    [
+        'text' => 'Login sebagai:',
+        'icon' => 'fas fa-user-circle',
+        'can'  => 'logged-in', // optional
+    ],
+
+    [
+        'text' => function () {
+            return auth()->user()->nama ?? auth()->user()->username;
+        },
+        'icon' => 'fas fa-id-badge',
+    ],
+    
+
     // PENGUMUMAN / Himbauan
     // [
     //     'text' => 'Pengumuman',
@@ -183,7 +201,7 @@ return [
             [
                 'text' => 'Pengembalian',
                 'url'  => 'asset/pengembalian',
-                'icon' => 'fas fa-tools',
+                'icon' => 'fas fa-file-signature',
             ],
         ],
     ],
@@ -191,24 +209,32 @@ return [
 
 
     // LAPORAN
+    // LAPORAN
     [
         'text' => 'Laporan',
         'icon' => 'fas fa-file-alt',
         'submenu' => [
             [
                 'text' => 'Laporan Asset',
-                'url'  => 'asset/report',
+                'url'  => 'asset/laporan',
                 'icon' => 'fas fa-file',
             ],
         ],
     ],
 
 
+
     // MANAGEMENT USER
     [
         'text' => 'Manajemen User',
-        'url'  => 'user/manage',
         'icon' => 'fas fa-user-cog',
+        'submenu' => [
+            [
+                'text' => 'User list',
+                'url'  => 'user-list',
+                'icon' => 'fas fa-file',
+            ],
+        ],
     ],
 
     // PENGATURAN
@@ -218,13 +244,7 @@ return [
         'icon' => 'fas fa-cog',
     ],
 
-    // LOGOUT
-    ['header' => ''],
-    [
-        'text' => 'Keluar Aplikasi',
-        'url'  => 'logout',
-        'icon' => 'fas fa-sign-out-alt',
-    ],
+
 ],
 
 // 'classes_sidebar' => 'elevation-4',
@@ -248,7 +268,7 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,

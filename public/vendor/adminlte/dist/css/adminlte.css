@@ -4314,7 +4314,7 @@ input[type="button"].btn-block {
 }
 
 .nav-link.disabled {
-  color: #6c757d;
+  color: #3e93de;
   pointer-events: none;
   cursor: default;
 }

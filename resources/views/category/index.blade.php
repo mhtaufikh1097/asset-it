@@ -14,31 +14,40 @@
 </div>
 @endif
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <h3 class="card-title">Master Category</h3>
+<div class="card shadow-sm">
+
+    {{-- HEADER --}}
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">Master Category</h3>
         <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm">
             <i class="fas fa-plus"></i> Tambah
         </a>
     </div>
 
-    <div class="card-body table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
+    {{-- TABLE --}}
+    <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+            <thead class="thead-light">
                 <tr>
-                    <th>No</th>
+                    <th style="width:60px">No</th>
                     <th>Nama Kategori</th>
                     <th>Keterangan</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th style="width:100px">Status</th>
+                    <th style="width:120px">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $cat)
+                @forelse ($categories as $cat)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $cat->name_category }}</td>
-                    <td>{{ $cat->keterangan }}</td>
+                    <td>
+                        {{ $loop->iteration + ($categories->firstItem() - 1) }}
+                    </td>
+                    <td>
+                        <span class="font-weight-medium">
+                            {{ $cat->name_category }}
+                        </span>
+                    </td>
+                    <td>{{ $cat->keterangan ?? '-' }}</td>
                     <td>
                         @if ($cat->is_active)
                             <span class="badge badge-success">Active</span>
@@ -47,37 +56,66 @@
                         @endif
                     </td>
                     <td>
-                        <button
-                            class="btn btn-sm btn-info btn-detail"
-                            data-toggle="modal"
-                            data-target="#categoryDetailModal"
+                        <div class="d-flex align-items-center gap-1">
 
-                            data-id="{{ $cat->id_category }}"
-                            data-name="{{ $cat->name_category }}"
-                            data-keterangan="{{ $cat->keterangan }}"
-                            data-status="{{ $cat->is_active }}"
-                            data-created="{{ $cat->created_at }}"
-                            data-updated="{{ $cat->updated_at }}"
-                        >
-                            Detail
-                        </button>
+                            {{-- DETAIL --}}
+                            <button
+                                class="btn btn-sm btn-info btn-detail"
+                                data-toggle="modal"
+                                data-target="#categoryDetailModal"
 
-                        <form action="{{ route('category.destroy', $cat->id_category) }}"
-                            method="POST"
-                            style="display:inline"
-                            onsubmit="return confirm('Hapus kategori ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                                data-id="{{ $cat->id_category }}"
+                                data-name="{{ $cat->name_category }}"
+                                data-keterangan="{{ $cat->keterangan }}"
+                                data-status="{{ $cat->is_active }}"
+                                data-created="{{ $cat->created_at }}"
+                                data-updated="{{ $cat->updated_at }}"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </button>
+
+                            {{-- DELETE --}}
+                            <form action="{{ route('category.destroy', $cat->id_category) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('Hapus kategori ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+
+                        </div>
                     </td>
-
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-3">
+                        Tidak ada data kategori
+                    </td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+
+    {{-- FOOTER PAGINATION --}}
+    <div class="card-footer p-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <small class="text-muted">
+                Showing {{ $categories->firstItem() }}
+                to {{ $categories->lastItem() }}
+                of {{ $categories->total() }} results
+            </small>
+
+            <div>
+                {{ $categories->links('vendor.pagination.adminlte-compact') }}
+            </div>
+        </div>
+    </div>
+
 </div>
+
 
 <!-- MODAL DETAIL CATEGORY -->
 <div class="modal fade" id="categoryDetailModal" tabindex="-1" role="dialog">

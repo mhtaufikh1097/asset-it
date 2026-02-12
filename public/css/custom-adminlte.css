@@ -21,3 +21,19 @@
 .nav-sidebar .nav-icon {
     color: rgb(198, 197, 201) !important;
 }
+
+/* === FIX LARAVEL PAGINATION SIZE (ADMINLTE) === */
+.pagination {
+    margin-bottom: 0;
+}
+
+.pagination .page-link {
+    padding: 0.25rem 0.6rem;   /* kecil & rapi */
+    font-size: 0.875rem;       /* normal text */
+    line-height: 1.25;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    font-size: 0.875rem;       /* pastikan ‹ › tidak gede */
+}

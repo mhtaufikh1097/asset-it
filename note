@@ -1,7 +1,42 @@
 php artisan config:clear
 php artisan cache:clear
+php artisan route:list /route list
 
 test koneksi database
 php artisan tinker
 DB::table('asset')->first();
 DB::select('SHOW TABLES');
+
+
+Clear autoload:
+composer dump-autoload
+
+
+
+tailwind:
+🟢 STEP 1 — INSTALL TAILWIND CSS (PELAAAAAN)
+1️⃣ Install dependency frontend
+
+Di root project (asset-it):
+
+npm install
+
+
+kalau sudah, lanjut:
+
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
+
+
+npm init -y (packeage.json)
+
+
+
+| Kondisi        | Harus                   |
+| -------------- | ----------------------- |
+| Dev lokal      | `npm run dev`           |
+| Error manifest | `.env` bukan production |
+| Prod / deploy  | `npm run build`         |
+
+

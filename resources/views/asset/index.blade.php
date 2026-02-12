@@ -9,99 +9,140 @@
 @section('content_header')
     <h1>Data Asset</h1>
 @stop
-
-
 @section('page-content')
-<div class="card">
-    <div class="card-header">
-        <div class="card-header d-flex justify-content-between">
-    <h3 class="card-title">List Data Asset</h3>
-    <a href="{{ route('asset.create') }}" class="btn btn-primary btn-sm">
-        <i class="fas fa-plus"></i> Tambah Asset</a>
-</div>
-      
+<div class="card shadow-sm">
+
+    {{-- HEADER --}}
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">List Data Asset</h3>
+        <a href="{{ route('asset.create') }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> Tambah Asset
+        </a>
     </div>
 
- @if (session('success'))
-<div class="alert alert-success auto-dismiss">
-    {{ session('success') }}
-</div>
-@endif
+    {{-- ALERT --}}
+    @if (session('success'))
+        <div class="alert alert-success auto-dismiss m-3">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if (session('error'))
-<div class="alert alert-danger auto-dismiss">
-    {{ session('error') }}
-</div>
-@endif
-        <table class="table table-bordered table-striped">
-            <thead>
+    @if (session('error'))
+        <div class="alert alert-danger auto-dismiss m-3">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    {{-- TABLE --}}
+    <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+            <thead class="thead-light">
                 <tr>
-                    <th>No</th>
+                    <th style="width:60px">No</th>
                     <th>Asset Number</th>
                     <th>Nama Asset</th>
                     <th>Lokasi</th>
-                    <th>Kondisi</th>
-                    <th>Assign to</th>
-                    <th>Aksi</th>
+                    <th >Kondisi</th>
+                    <th>Assign To</th>
+                    <th >Aksi</th>
                 </tr>
             </thead>
-           <tbody>
-    @forelse ($assets as $asset)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $asset->asset_number }}</td>
-            <td>{{ $asset->asset_name }}</td>
-            <td>{{ $asset->location }}</td>
-            <td>
-                @if ($asset->asset_condition === 'SERVICEABLE')
-                    <span class="badge badge-success">Serviceable</span>
-                @else
-                    <span class="badge badge-danger">Unserviceable</span>
-                @endif
-            </td>
-            <td>{{ $asset->assign_to}}</td>
+            <tbody>
+                @forelse ($assets as $asset)
+                <tr>
                     <td>
-                <button
-    class="btn btn-sm btn-info btn-asset-detail"
-    data-toggle="modal"
-    data-target="#assetDetailModal"
+                        {{ $loop->iteration + ($assets->firstItem() - 1) }}
+                    </td>
+                    <td>
+                            {{ $asset->asset_number }}
+                        
+                    </td>
+                    <td>{{ $asset->asset_name }}</td>
+                    <td>{{ $asset->location }}</td>
+                    <td>
+                        @if ($asset->asset_condition === 'SERVICEABLE')
+                            <span class="badge badge-success">
+                                Serviceable
+                            </span>
+                        @else
+                            <span class="badge badge-danger">
+                                Unserviceable
+                            </span>
+                        @endif
+                    </td>
+                    <td>{{ $asset->assign_to ?? '-' }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-1">
 
-    data-asset_number="{{ $asset->asset_number }}"
-    data-asset_name="{{ $asset->asset_name }}"
-    data-part_number="{{ $asset->part_number }}"
-    data-serial_number="{{ $asset->serial_number }}"
-    data-model="{{ $asset->model }}"
-    data-manufacturer="{{ $asset->manufacturer }}"
-    data-yom="{{ $asset->yom }}"
-    data-condition="{{ $asset->asset_condition }}"
-    data-owner="{{ $asset->owner }}"
-    data-department="{{ $asset->department }}"
-    data-location="{{ $asset->location }}"
-    data-assign_to="{{ $asset->assign_to }}">
-    Detail
-</button>
+                            {{-- DETAIL --}}
+                            <button
+                                class="btn btn-sm btn-info btn-asset-detail"
+                                data-toggle="modal"
+                                data-target="#assetDetailModal"
 
+                                data-asset_number="{{ $asset->asset_number }}"
+                                data-asset_name="{{ $asset->asset_name }}"
+                                data-part_number="{{ $asset->part_number }}"
+                                data-serial_number="{{ $asset->serial_number }}"
+                                data-model="{{ $asset->model }}"
+                                data-manufacturer="{{ $asset->manufacturer }}"
+                                data-yom="{{ $asset->yom }}"
+                                data-condition="{{ $asset->asset_condition }}"
+                                data-owner="{{ $asset->owner }}"
+                                data-department="{{ $asset->department }}"
+                                data-location="{{ $asset->location }}"
+                                data-assign_to="{{ $asset->assign_to }}"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </button>
 
-                <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                <button 
-    class="btn btn-sm btn-danger btn-delete"
-    data-toggle="modal"
-    data-target="#deleteModal"
-    data-id="{{ $asset->id }}"
-    data-name="{{ $asset->asset_name }}"
->
-    Delete
-</button>
+                            {{-- EDIT --}}
+                            <a href="#" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
 
-            </td>
+                            {{-- DELETE --}}
+                            <button 
+                                class="btn btn-sm btn-danger btn-delete"
+                                data-toggle="modal"
+                                data-target="#deleteModal"
+                                data-id="{{ $asset->id }}"
+                                data-name="{{ $asset->asset_name }}"
+                            >
+                                <i class="fas fa-trash"></i>
+                            </button>
 
-        </tr>
-    @empty
-        <tr>
-            <td colspan="6" class="text-center">Belum ada data asset</td>
-        </tr>
-    @endforelse
-</tbody>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-3">
+                        Belum ada data asset
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    {{-- FOOTER PAGINATION --}}
+    <div class="card-footer p-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <small class="text-muted">
+                Showing {{ $assets->firstItem() }}
+                to {{ $assets->lastItem() }}
+                of {{ $assets->total() }} results
+            </small>
+
+            <div>
+                {{ $assets->links('vendor.pagination.adminlte-compact') }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
         </table>
         <!-- MODAL DETAIL ASSET -->

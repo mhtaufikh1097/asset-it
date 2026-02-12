@@ -17,11 +17,15 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
+     protected $fillable = [
+        'username',
+        'nama',
         'email',
         'password',
+        'is_active',
     ];
+
+  
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +49,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function adminlte_image()
+    {
+        return null; // kalau belum pakai foto
+    }
+
+    public function adminlte_desc()
+    {
+        return 'Administrator';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return '#';
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->nama ?? $this->username;
+    }
+
 }
